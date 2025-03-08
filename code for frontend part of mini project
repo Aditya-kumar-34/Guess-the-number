@@ -1,0 +1,126 @@
+
+#code for the html ,css ,javascript 
+#html code 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Number</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>🎯 Guess the Number 🎯</h2>
+        <p>Pick a number between 1 and 100</p>
+        <input type="number" id="userGuess" placeholder="Enter your guess" min="1" max="100">
+        <button id="submitGuess">Submit Guess</button>
+        <p class="message" id="message"></p>
+        <p>Attempts: <span id="attempts">0</span></p>
+        <button id="resetGame" class="reset-btn">Reset</button>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
+................................................................................................................................................................................................................
+.....................................................................................................................................................................................................................
+# css code 
+
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+    margin: 50px;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: auto;
+}
+
+input {
+    padding: 10px;
+    width: 80%;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.message {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.reset-btn {
+    background-color: red;
+}
+
+.reset-btn:hover {
+    background-color: darkred;
+}
+.................................................................................................................................................................................
+.............................................................................................................................................................................
+#javascript code 
+// your code goes here
+
+let randomNumber = Math.floor(Math.random() * 100) + 1;
+let attempts = 0;
+
+document.getElementById("submitGuess").addEventListener("click", checkGuess);
+document.getElementById("resetGame").addEventListener("click", resetGame);
+
+function checkGuess() {
+    let guess = parseInt(document.getElementById("userGuess").value);
+    let message = document.getElementById("message");
+    let attemptsDisplay = document.getElementById("attempts");
+
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+        message.textContent = "⚠️ Please enter a number between 1 and 100!";
+        message.style.color = "red";
+        return;
+    }
+
+    attempts++;
+    attemptsDisplay.textContent = attempts;
+
+    if (guess < randomNumber) {
+        message.textContent = "📉 Too low! Try again.";
+        message.style.color = "blue";
+    } else if (guess > randomNumber) {
+        message.textContent = "📈 Too high! Try again.";
+        message.style.color = "orange";
+    } else {
+        message.textContent = `🎉 Correct! You guessed it in ${attempts} attempts.`;
+        message.style.color = "green";
+    }
+}
+
+function resetGame() {
+    randomNumber = Math.floor(Math.random() * 100) + 1;
+    attempts = 0;
+    document.getElementById("message").textContent = "";
+    document.getElementById("attempts").textContent = "0";
+    document.getElementById("userGuess").value = "";
+}
